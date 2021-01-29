@@ -36,9 +36,9 @@ public class UserServiceImp implements UserService{
         userDao.deleteById(id);
     }
 
-    /*@Override
+    @Override
     public UserModel getUserByName(String username) {
 
         return userDao.getUserByName(username);
-    }*/
+    }
 }

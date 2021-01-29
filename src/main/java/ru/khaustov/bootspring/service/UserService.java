@@ -13,5 +13,5 @@ public interface UserService {
 
     public void deleteUser(long id);
 
-    //public UserModel getUserByName(String username);
+    public UserModel getUserByName(String username);
 }

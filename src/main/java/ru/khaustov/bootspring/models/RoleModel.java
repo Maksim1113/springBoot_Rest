@@ -1,11 +1,13 @@
 package ru.khaustov.bootspring.models;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "roles")
-public class RoleModel {
+public class RoleModel implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -42,4 +44,8 @@ public class RoleModel {
         this.role = role;
     }
 
+    @Override
+    public String getAuthority() {
+        return role;
+    }
 }

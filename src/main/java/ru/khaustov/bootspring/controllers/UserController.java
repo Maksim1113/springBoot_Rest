@@ -39,15 +39,14 @@ public class UserController {
         return "redirect:/start";
     }
 
-    /*@GetMapping("/user")
+    @GetMapping("/user")
     public String userPage(Principal principal, Model model){
         List<UserModel> users = new ArrayList<>();
         users.add(userService.getUserByName(principal.getName()));
         model.addAttribute("users", users);
         return "userInfo";
 
-
-    }*/
+    }
 
     @GetMapping("/admin")
     public String getAllUsers(Model model){

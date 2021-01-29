@@ -7,6 +7,5 @@ import ru.khaustov.bootspring.models.UserModel;
 import java.util.List;
 @Repository
 public interface UserDao extends JpaRepository<UserModel, Long> {
-
-
+    UserModel getUserByName(String username);
 }
