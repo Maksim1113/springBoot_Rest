@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Start page</title>
+</head>
+
+<body>
+<h3>Hi you are in START Page</h3>
+<form th:method="GET" th:action="@{/registration}">
+    <input type="submit" value="Registration"/>
+</form>
+<br>
+<a href="/login"> Sign in</a>
+
+
+</body>
