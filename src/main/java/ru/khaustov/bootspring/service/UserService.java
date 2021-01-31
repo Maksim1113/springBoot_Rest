@@ -1,8 +1,10 @@
 package ru.khaustov.bootspring.service;
 
+import ru.khaustov.bootspring.models.RoleModel;
 import ru.khaustov.bootspring.models.UserModel;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserService {
     public List<UserModel> getAllUsers();
@@ -14,4 +16,6 @@ public interface UserService {
     public void deleteUser(long id);
 
     public UserModel getUserByName(String username);
+
+    public String textRole(Set<RoleModel> roles);
 }

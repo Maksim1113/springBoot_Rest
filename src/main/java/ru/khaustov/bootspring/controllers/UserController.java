@@ -1,18 +1,23 @@
 package ru.khaustov.bootspring.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import ru.khaustov.bootspring.models.RoleModel;
 import ru.khaustov.bootspring.models.UserModel;
+import ru.khaustov.bootspring.service.UserDetailsServiceImpl;
 import ru.khaustov.bootspring.service.UserService;
+import ru.khaustov.bootspring.service.UserServiceImp;
 
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class UserController {
@@ -49,9 +54,13 @@ public class UserController {
     }
 
     @GetMapping("/admin")
-    public String getAllUsers(Model model){
+    public String getAllUsers(Model model, Principal principal){
         List<UserModel> users = userService.getAllUsers();
+        UserModel userModel = userService.getUserByName(principal.getName());
+        String text = userModel.getUsername() + " with roles:"
+                + userService.textRole((Set<RoleModel>)userModel.getRoles());
         model.addAttribute("users", users);
+        model.addAttribute("username", text);
         return "getUsers";
     }
 

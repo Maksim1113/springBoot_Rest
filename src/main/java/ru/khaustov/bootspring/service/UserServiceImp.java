@@ -41,4 +41,14 @@ public class UserServiceImp implements UserService{
 
         return userDao.getUserByName(username);
     }
+
+    public String textRole(Set<RoleModel> roles){
+        StringBuilder text = new StringBuilder();
+
+        for (RoleModel roleModel : roles) {
+            text.append(" ");
+            text.append(roleModel.getRole());
+        }
+        return text.toString();
+    }
 }
