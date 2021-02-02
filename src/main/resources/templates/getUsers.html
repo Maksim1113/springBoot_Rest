@@ -5,11 +5,9 @@
     <meta charset="UTF-8">
     <title>Ussers</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js" integrity="sha384-BOsAfwzjNJHrJ8cZidOg56tcQWfp6y72vEJ8xQ9w6Quywb24iOsW913URv1IS4GD" crossorigin="anonymous"></script>
+    <link href="webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 
 </head>
 <body>
@@ -28,61 +26,120 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2" style="background-color: aliceblue">
+        <div class="col-md-2">
             <a href="/admin/new"> Create new user</a>
             <br/>
             <a href="/user"> View profile</a>
         </div>
-        <div class="panel panel-default col-md-9">
-            <h2>Admin panel</h2>
-            <div class="panel-body">Button</div>
-            <div class="panel-heading">All users</div>
-            <div class="panel-body">
-                <table class="table table-striped table-hover">
-                    <thead>
-                    <tr>
 
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Username</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr th:each="user: ${users}">
-                            <td th:text="${user.getId()}"/>
-                            <td th:text="${user.getName()}"/>
-                            <td th:text="${user.getAge()}"/>
-                            <td th:text="${user.username}"/>
-
-                            <td>
-                                <form th:method="GET" th:action="@{/admin/{id}(id=${user.getId()})}" th:object="${user}">
-                                    <button type="submit" class="btn btn-info">Update</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}" th:object="${user}">
-                                    <input type="submit" value="Delete"/>
-                                </form>
-                            </td>
-                        </tr>
-
-                        </tbody>
-                    </table>
-
+        <div class="panel panel-default col-md-10" style="background-color: #d3d3d3">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-11">
+                    <h2>Admin panel</h2>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10" style="background-color: #ffffff">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-secondary disabled btn-light">Users table</button>
+                        <button type="button" class="btn btn-link">Middle</button>
+                    </div>
+                    <div class="panel-heading">
+                        <h4>All users</h4>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-striped table-hover table-bordered table-sm">
+                            <thead>
+                            <tr>
 
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>Username</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr th:each="user: ${users}">
+                                <td th:text="${user.getId()}"/>
+                                <td th:text="${user.getName()}"/>
+                                <td th:text="${user.getAge()}"/>
+                                <td th:text="${user.username}"/>
+
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal">Update</button>
+                                    <!--<form th:method="GET" th:action="@{/admin/{id}(id=${user.getId()})}" th:object="${user}">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Open modal for @mdo</button>
+                                    </form>-->
+                                </td>
+                                <td>
+                                    <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}" th:object="${user}">
+                                        <button type="submit" class="btn btn-danger btn-sm"> Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                </div>
         </div>
-
-        <div class="col-md-1"></div>
-
     </div>
-
 </div>
+
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update user</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="name">
+                        </div>
+
+                    <div class="form-group">
+                        <label for="age" class="col-form-label">Age:</label>
+                        <input type="text" class="form-control" id="age">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username" class="col-form-label">Username:</label>
+                        <input type="text" class="form-control" id="username">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="col-form-label">Password:</label>
+                        <input type="text" class="form-control" id="password">
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
 
 </body>
 </html>
