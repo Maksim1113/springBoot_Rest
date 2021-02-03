@@ -45,8 +45,12 @@ public class UserController {
     @GetMapping("/user")
     public String userPage(Principal principal, Model model){
         List<UserModel> users = new ArrayList<>();
-        users.add(userService.getUserByName(principal.getName()));
+        UserModel userModel = userService.getUserByName(principal.getName());
+        String text = userModel.getUsername() + " with roles:"
+                + userService.textRole((Set<RoleModel>)userModel.getRoles());
+        users.add(userModel);
         model.addAttribute("users", users);
+        model.addAttribute("username", text);
         return "userInfo";
 
     }

@@ -4,42 +4,81 @@
 <head>
     <meta charset="UTF-8">
     <title>User info</title>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js" integrity="sha384-BOsAfwzjNJHrJ8cZidOg56tcQWfp6y72vEJ8xQ9w6Quywb24iOsW913URv1IS4GD" crossorigin="anonymous"></script>
-
-    <!--<style>
-        table {
-            width: 300px;
-            border: 1px solid green;
-            margin: auto;
-        }
-        td {
-            text-align: center;
-        }
-    </style>-->
+    <link href="webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 </head>
-<body>
-<table class="table">
-    <thead>
-    <tr>
-        <th>id</th>
-        <th>name</th>
-        <th>age</th>
-        <th>username</th>
-        <th>password</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user: ${users}">
-        <td th:text="${user.getId()}"/>
-        <td th:text="${user.getName()}"/>
-        <td th:text="${user.getAge()}"/>
-        <td th:text="${user.getUsername()}"/>
-        <td th:text="${user.getPassword()}"/>
-    </tr>
 
-    </tbody>
-</table>
-<a href="/logout"> Exit</a>
+<body>
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg py-md-0">
+    <div class="container-fluid">
+        <div class="col-md-9 navbar-header">
+            <p th:text="${username}" href="#" class="navbar-brand"></p>
+        </div>
+
+        <div>
+            <div class="col-md-3"></div>
+            <a href="/logout" class="navbar-brand">Exit</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="btn-group-vertical btn-lg btn-block" role="group" aria-label="Basic example">
+                <form th:method="GET" th:action="@{/admin}">
+                <button class="btn btn-link btn-lg btn-block" type="submit">Admin</button>
+                </form>
+                <button type="button" class="btn btn-primary disabled" >User</button>
+            </div>
+        </div>
+
+        <div class="panel panel-default col-md-10" style="background-color: #d3d3d3">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-11">
+                    <h2>User information-page</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10" style="background-color: #ffffff">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                    </div>
+                    <div class="panel-heading">
+                        <h4>About user</h4>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-striped table-hover table-bordered table-sm">
+                            <thead>
+                            <tr>
+
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>Username</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr th:each="user: ${users}">
+                                <td th:text="${user.getId()}"/>
+                                <td th:text="${user.getName()}"/>
+                                <td th:text="${user.getAge()}"/>
+                                <td th:text="${user.username}"/>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
