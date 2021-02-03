@@ -29,8 +29,12 @@ public class UserController {
     }
 
     @GetMapping("/registration")
-    public String regNewUser(Model model){
+    public String regNewUser(Model model, Principal principal){
+        UserModel userModel = userService.getUserByName(principal.getName());
+        String text = userModel.getUsername() + " with roles:"
+                + userService.textRole((Set<RoleModel>)userModel.getRoles());
         model.addAttribute("user", new UserModel());
+        model.addAttribute("username", text);
         return "registration";
 
     }
@@ -39,7 +43,7 @@ public class UserController {
     @PostMapping("/registration")
     public String regUser(@ModelAttribute("user") UserModel user){
         userService.addUser(user);
-        return "redirect:/start";
+        return "redirect:/admin";
     }
 
     @GetMapping("/user")

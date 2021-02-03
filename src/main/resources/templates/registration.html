@@ -5,31 +5,56 @@
 <head>
     <meta charset="UTF-8">
     <title>New user</title>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js" integrity="sha384-BOsAfwzjNJHrJ8cZidOg56tcQWfp6y72vEJ8xQ9w6Quywb24iOsW913URv1IS4GD" crossorigin="anonymous"></script>
-
+    <link href="webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg py-md-0">
+    <div class="container-fluid">
+        <div class="col-md-9 navbar-header">
+            <p th:text="${username}" href="#" class="navbar-brand"></p>
+        </div>
+
+        <div>
+            <div class="col-md-3"></div>
+            <a href="/logout" class="navbar-brand">Exit</a>
+        </div>
+    </div>
+</nav>
+
+
 <form th:method="POST" th:action="@{/registration}" th:object="${user}">
     <input type="hidden" name="Id" th:value="${user.id}">
     <input type="hidden" name="Role" th:value="${user.getRoles()}">
-    <label for="name"> Enter name </label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <br/>
-    <br/>
-    <label for="age"> Set age </label>
-    <input type="number" th:field="*{age}" id="age"/>
-    <br/>
-    <br/>
-    <label for="username"> Enter username </label>
-    <input type="text" th:field="*{username}" id="username"/>
-    <br/>
-    <label for="password"> Enter password </label>
-    <input type="text" th:field="*{password}" id="password"/>
-    <br/>
-    <input type="submit" value="Reg user"/>
+
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter name">
+    </div>
+
+    <div class="form-group">
+        <label for="age">Age</label>
+        <input type="number" th:field="*{age}" class="form-control" id="age" placeholder="Enter age">
+    </div>
+
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" th:field="*{username}" class="form-control" id="username" placeholder="Enter username">
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="text" th:field="*{password}" class="form-control" id="password" placeholder="Enter password">
+    </div>
+    <!--<label for="age"> Set age </label>
+    <input type="number" th:field="*{age}" id="age"/>-->
+    <!--<label for="username"> Enter username </label>
+    <input type="text" th:field="*{username}" id="username"/>-->
+    <!--<label for="password"> Enter password </label>
+    <input type="text" th:field="*{password}" id="password"/>-->
+    <button type="submit" class="btn btn-primary">Create user</button>
 </form>
 
 </body>
