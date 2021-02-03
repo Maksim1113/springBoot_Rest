@@ -51,4 +51,9 @@ public class UserServiceImp implements UserService{
         }
         return text.toString();
     }
+
+    @Override
+    public Optional<UserModel> findById(Long id) {
+        return userDao.findById(id);
+    }
 }
