@@ -91,10 +91,15 @@ public class UserController {
     }
 
 
-    @DeleteMapping("/admin/{id}")
-    public String deleteUser(@ModelAttribute("user") UserModel user){
-        Long userId = user.getId();
-        userService.deleteUser(userId);
+   /* @DeleteMapping("/admin")
+    public String deleteUser(Long id){
+        userService.deleteUser(id);
+        return "redirect:/admin";
+    }*/
+
+    @RequestMapping(value = "/admin/delete", method = {RequestMethod.DELETE, RequestMethod.GET})
+    public String deleteUser(Long id){
+        userService.deleteUser(id);
         return "redirect:/admin";
     }
 }
