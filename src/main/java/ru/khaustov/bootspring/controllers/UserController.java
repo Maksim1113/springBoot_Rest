@@ -43,7 +43,7 @@ public class UserController {
     @PostMapping("/registration")
     public String regUser(@ModelAttribute("user") UserModel user){
         userService.addUser(user);
-        return "redirect:/admin";
+        return "redirect:/registration";
     }
 
     @GetMapping("/user")
@@ -70,7 +70,7 @@ public class UserController {
         return "getUsers";
     }
 
-    @GetMapping("/admin/{id}")
+  /*  @GetMapping("/admin/{id}")
     public String user(@ModelAttribute("user") UserModel edUser, Model model){
         UserModel user = userService.getUser(edUser.getId());
         model.addAttribute("user", user);
@@ -83,7 +83,7 @@ public class UserController {
         model.addAttribute("user", new UserModel());
         return "newUser";
 
-    }
+    }*/
 
     @RequestMapping("/getOne")
     @ResponseBody
