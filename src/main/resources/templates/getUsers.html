@@ -64,7 +64,7 @@
                                 <th>Id</th>
                                 <th>Name</th>
                                 <th>Age</th>
-                                <th>Username</th>
+                                <th>Email</th>
                                 <th>Roles</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
@@ -138,13 +138,21 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="usernameEdit" class="col-form-label">Username:</label>
+                        <label for="usernameEdit" class="col-form-label">Email:</label>
                         <input type="text" class="form-control" id="usernameEdit" name="username">
                     </div>
 
                     <div class="form-group">
                         <label for="passwordEdit" class="col-form-label">Password:</label>
                         <input type="text" class="form-control" id="passwordEdit" name="password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dis">Roles</label>
+                        <select id="dis" name="rol" class="form-control">
+                            <option>ROLE_USER</option>
+                            <option>ROLE_ADMIN</option>
+                        </select>
                     </div>
 
 
@@ -187,7 +195,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="usernameEdit" class="col-form-label">Username:</label>
+                            <label for="usernameEdit" class="col-form-label">Email:</label>
                             <input type="text" class="form-control" id="usernameDel" name="username">
                         </div>
 
@@ -195,6 +203,15 @@
                             <label for="passwordEdit" class="col-form-label">Password:</label>
                             <input type="text" class="form-control" id="passwordDel" name="password">
                         </div>
+                        <div class="form-group">
+                            <label for="disabledSelect">Roles</label>
+                            <select id="disabledSelect" name="rol" class="form-control">
+                                <option>ROLE_USER</option>
+                                <option>ROLE_ADMIN</option>
+                            </select>
+                        </div>
+
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

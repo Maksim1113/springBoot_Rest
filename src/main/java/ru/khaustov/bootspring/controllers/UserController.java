@@ -41,8 +41,8 @@ public class UserController {
 
 
     @PostMapping("/registration")
-    public String regUser(@ModelAttribute("user") UserModel user){
-        userService.addUser(user);
+    public String regUser(@ModelAttribute("user") UserModel user, @RequestParam("rol") String rol){
+        userService.addUser(user, rol);
         return "redirect:/registration";
     }
 
@@ -93,8 +93,8 @@ public class UserController {
 
 
     @PostMapping("/admin")
-    public String createUser(@ModelAttribute("user") UserModel user){
-        userService.addUser(user);
+    public String createUser(@ModelAttribute("user") UserModel user, @RequestParam("rol") String rol){
+        userService.addUser(user, rol);
         return "redirect:/admin";
     }
 

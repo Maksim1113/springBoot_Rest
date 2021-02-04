@@ -25,8 +25,17 @@ public class UserServiceImp implements UserService{
     }
 
     @Override
-    public void addUser(UserModel user) {
-        user.setRoles(Collections.singleton(new RoleModel(1L, "ROLE_USER")));
+    public void addUser(UserModel user, String role) {
+        if (role.equals("ROLE_ADMIN")) {
+            RoleModel roleModel1 = new RoleModel(2L, "ROLE_USER");
+            RoleModel roleModel2 = new RoleModel(1L, "ROLE_ADMIN");
+            Set<RoleModel> set = new HashSet<>();
+            set.add(roleModel1);
+            set.add(roleModel2);
+            user.setRoles(set);
+        } else  {
+            user.setRoles(Collections.singleton(new RoleModel(2L, "ROLE_USER")));
+        }
 
         userDao.save(user);
     }

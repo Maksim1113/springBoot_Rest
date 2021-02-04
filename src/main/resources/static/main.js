@@ -12,6 +12,7 @@ $('document').ready(function () {
            $('#ageEdit').val(userModel.age);
            $('#usernameEdit').val(userModel.username);
            $('#passwordEdit').val(userModel.password);
+
        });
 
        $('#updateModal').modal();
