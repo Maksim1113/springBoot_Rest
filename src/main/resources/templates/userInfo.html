@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -28,9 +28,11 @@
     <div class="row">
         <div class="col-md-2">
             <div class="btn-group-vertical btn-lg btn-block" role="group" aria-label="Basic example">
-                <form th:method="GET" th:action="@{/admin}">
-                    <button class="btn btn-link btn-lg btn-block" type="submit">Admin</button>
+                <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <form  th:method="GET" th:action="@{/admin}">
+                    <button  class="btn btn-link btn-lg btn-block" type="submit">Admin</button>
                 </form>
+                </div>
                 <button type="button" class="btn btn-primary disabled" >User</button>
             </div>
         </div>
@@ -59,6 +61,7 @@
                                 <th>Name</th>
                                 <th>Age</th>
                                 <th>Username</th>
+                                <th>Roles</th>
                             </tr>
                             </thead>
 
@@ -68,6 +71,10 @@
                                 <td th:text="${user.getName()}"/>
                                 <td th:text="${user.getAge()}"/>
                                 <td th:text="${user.username}"/>
+                                <td>
+                                    <th:block th:each="rol : ${user.getMyRole()}"
+                                              th:text="${rol.getRole()} + ' '">role</th:block>
+                                </td>
                             </tr>
 
                             </tbody>
