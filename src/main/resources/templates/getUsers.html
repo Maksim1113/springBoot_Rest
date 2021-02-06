@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Ussers</title>
 
+    <link rel="stylesheet" type="text/css" th:href="@{/home.css}"/>
     <link href="webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>
     <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
@@ -12,6 +13,7 @@
 
 </head>
 <body>
+
   <nav class="navbar navbar-dark bg-dark navbar-expand-lg py-md-0">
       <div class="container-fluid">
           <div class="col-md-9 navbar-header">
@@ -24,10 +26,9 @@
           </div>
       </div>
   </nav>
-
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2 sidebar">
             <div class="btn-group-vertical btn-lg btn-block" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-primary disabled">Admin</button>
                 <form th:method="GET" th:action="@{/user}">
@@ -36,7 +37,7 @@
             </div>
         </div>
 
-        <div class="panel panel-default col-md-10" style="background-color: #d3d3d3">
+        <div class="panel panel-default col-md-10 sidebar" style="background-color: #d3d3d3">
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-11">
@@ -149,11 +150,20 @@
 
                     <div class="form-group">
                         <label for="dis">Roles</label>
+                        <select id="dis" name="roles" class="form-control" multiple="multiple">
+                            <option th:each="role : ${set}"
+                                    th:value="${{role}}"
+                                    th:text="${role.getRole()}">Cinema</option>
+                        </select>
+                    </div>
+
+                    <!--<div class="form-group">
+                        <label for="dis">Roles</label>
                         <select id="dis" name="rol" class="form-control">
                             <option>ROLE_USER</option>
                             <option>ROLE_ADMIN</option>
                         </select>
-                    </div>
+                    </div>-->
 
 
 
@@ -225,6 +235,6 @@
 
 
 
-
+</div>
 </body>
 </html>

@@ -1,15 +1,12 @@
 package ru.khaustov.bootspring.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.khaustov.bootspring.models.RoleModel;
 import ru.khaustov.bootspring.models.UserModel;
-import ru.khaustov.bootspring.service.UserDetailsServiceImpl;
+import ru.khaustov.bootspring.service.RoleService;
 import ru.khaustov.bootspring.service.UserService;
-import ru.khaustov.bootspring.service.UserServiceImp;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -20,8 +17,13 @@ import java.util.Set;
 @Controller
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final RoleService roleService;
+
+    public UserController(UserService userService, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     @GetMapping("/start")
     public String start(){
@@ -33,16 +35,18 @@ public class UserController {
         UserModel userModel = userService.getUserByName(principal.getName());
         String text = userModel.getUsername() + " with roles:"
                 + userService.textRole((Set<RoleModel>)userModel.getRoles());
+        Set<RoleModel> set = roleService.getAllRoles();
         model.addAttribute("user", new UserModel());
         model.addAttribute("username", text);
+        model.addAttribute("set", set);
         return "registration";
 
     }
 
 
     @PostMapping("/registration")
-    public String regUser(@ModelAttribute("user") UserModel user, @RequestParam("rol") String rol){
-        userService.addUser(user, rol);
+    public String regUser(@ModelAttribute("user") UserModel user){
+        userService.addUser(user);
         return "redirect:/registration";
     }
 
@@ -65,8 +69,10 @@ public class UserController {
         UserModel userModel = userService.getUserByName(principal.getName());
         String text = userModel.getUsername() + " with roles:"
                 + userService.textRole((Set<RoleModel>)userModel.getRoles());
+        Set<RoleModel> set = roleService.getAllRoles();
         model.addAttribute("users", users);
         model.addAttribute("username", text);
+        model.addAttribute("set", set);
         return "getUsers";
     }
 
@@ -93,8 +99,8 @@ public class UserController {
 
 
     @PostMapping("/admin")
-    public String createUser(@ModelAttribute("user") UserModel user, @RequestParam("rol") String rol){
-        userService.addUser(user, rol);
+    public String createUser(@ModelAttribute("user") UserModel user){
+        userService.addUser(user);
         return "redirect:/admin";
     }
 

@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>User info</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/home.css}"/>
     <link href="webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>
     <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
@@ -26,7 +27,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2 sidebar">
             <div class="btn-group-vertical btn-lg btn-block" role="group" aria-label="Basic example">
                 <form  th:method="GET" th:action="@{/admin}">
                     <button  class="btn btn-link btn-lg btn-block" type="submit">Admin</button>
@@ -35,7 +36,7 @@
             </div>
         </div>
 
-        <div class="panel panel-default col-md-10" style="background-color: #d3d3d3">
+        <div class="panel panel-default col-md-10 sidebar" style="background-color: #d3d3d3">
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-11">
@@ -87,4 +88,5 @@
             </div>
         </div>
     </div>
+</div>
 </body>

@@ -11,8 +11,11 @@ import java.util.*;
 @Service
 public class UserServiceImp implements UserService{
 
-    @Autowired
-    private UserDao userDao;
+    private final UserDao userDao;
+
+    public UserServiceImp(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     @Override
     public List<UserModel> getAllUsers() {
@@ -25,8 +28,8 @@ public class UserServiceImp implements UserService{
     }
 
     @Override
-    public void addUser(UserModel user, String role) {
-        if (role.equals("ROLE_ADMIN")) {
+    public void addUser(UserModel user) {
+        /*if (role.equals("ROLE_ADMIN")) {
             RoleModel roleModel1 = new RoleModel(2L, "ROLE_USER");
             RoleModel roleModel2 = new RoleModel(1L, "ROLE_ADMIN");
             Set<RoleModel> set = new HashSet<>();
@@ -35,7 +38,7 @@ public class UserServiceImp implements UserService{
             user.setRoles(set);
         } else  {
             user.setRoles(Collections.singleton(new RoleModel(2L, "ROLE_USER")));
-        }
+        }*/
 
         userDao.save(user);
     }
@@ -48,7 +51,7 @@ public class UserServiceImp implements UserService{
     @Override
     public UserModel getUserByName(String username) {
 
-        return userDao.getUserByName(username);
+        return userDao.getUserByUsername(username);
     }
 
     public String textRole(Set<RoleModel> roles){

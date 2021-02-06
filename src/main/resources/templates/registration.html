@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>New user</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/home.css}"/>
     <link href="webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>
     <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
@@ -27,7 +28,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2 sidebar">
             <div class="btn-group-vertical btn-lg btn-block" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-primary disabled">Admin</button>
                 <form th:method="GET" th:action="@{/user}">
@@ -36,7 +37,7 @@
             </div>
         </div>
 
-        <div class="panel panel-default col-md-10" style="background-color: #d3d3d3">
+        <div class="panel panel-default col-md-10 sidebar" style="background-color: #d3d3d3">
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-11">
@@ -61,14 +62,14 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-3"></div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 text-center font-weight-bold">
                                 <form th:method="POST" th:action="@{/registration}" th:object="${user}">
                                     <input type="hidden" name="Id" th:value="${user.id}">
                                     <input type="hidden" name="Role" th:value="${user.getRoles()}">
 
 
                                     <div class="form-group col-xs-2">
-                                        <label for="name">Name</label>
+                                        <label for="name" class="center-block">Name</label>
                                         <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter name">
                                     </div>
 
@@ -88,13 +89,14 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="disabledSelect">Disabled select menu</label>
-                                        <select id="disabledSelect" name="rol" class="form-control">
-                                            <option>ROLE_USER</option>
-                                            <option>ROLE_ADMIN</option>
+                                        <label for="disabledSelect">Roles select menu</label>
+                                        <select id="disabledSelect" th:field="*{roles}" class="form-control" multiple="multiple">
+                                            <option th:each="role : ${set}"
+                                                    th:value="${{role}}"
+                                            th:text="${role.getRole()}">Cinema</option>
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Create user</button>
+                                    <button type="submit" class="btn btn-success">Create user</button>
                                 </form>
 
                             </div>
@@ -110,4 +112,5 @@
             </div>
         </div>
     </div>
+</div>
 </body>

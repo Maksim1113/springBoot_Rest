@@ -16,7 +16,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private LoginSuccessHandler loginSuccessHandler;
     private UserDetailsService userDetailsService;
 
-    @Autowired
+
     public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService, LoginSuccessHandler loginSuccessHandler){
         this.loginSuccessHandler = loginSuccessHandler;
         this.userDetailsService = userDetailsService;
@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/registration").access("hasRole('ADMIN')")
-                .antMatchers("/user/**").access("hasAnyRole('USER', 'ADMIN')")
+                .antMatchers("/user/**").access("hasRole('USER')")
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
                 .and()
                 .formLogin()

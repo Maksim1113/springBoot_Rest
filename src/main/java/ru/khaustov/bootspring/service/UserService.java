@@ -12,7 +12,7 @@ public interface UserService {
 
     public UserModel getUser(Long id);
 
-    public void addUser(UserModel user, String role);
+    public void addUser(UserModel user);
 
     public void deleteUser(long id);
 

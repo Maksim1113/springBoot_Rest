@@ -12,14 +12,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private UserDao userDao;
 
-    @Autowired
+
     public UserDetailsServiceImpl(UserDao userDao) {
         this.userDao = userDao;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userDao.getUserByName(username);
+        return userDao.getUserByUsername(username);
 
     }
 }
