@@ -3,6 +3,7 @@ package ru.khaustov.bootspring.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import ru.khaustov.bootspring.models.RoleModel;
 import ru.khaustov.bootspring.models.UserModel;
 import ru.khaustov.bootspring.service.RoleService;
@@ -31,7 +32,8 @@ public class UserController {
     }
 
     @GetMapping("/registration")
-    public String regNewUser(Model model, Principal principal){
+    public ModelAndView regNewUser(Model model, Principal principal){
+        ModelAndView modelAndView = new ModelAndView();
         UserModel userModel = userService.getUserByName(principal.getName());
         String text = userModel.getUsername() + " with roles:"
                 + userService.textRole((Set<RoleModel>)userModel.getRoles());
@@ -39,7 +41,9 @@ public class UserController {
         model.addAttribute("user", new UserModel());
         model.addAttribute("username", text);
         model.addAttribute("set", set);
-        return "registration";
+        //return "registration";
+        modelAndView.setViewName("getUsers");
+        return modelAndView;
 
     }
 
@@ -51,7 +55,8 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public String userPage(Principal principal, Model model){
+    public ModelAndView userPage(Principal principal, Model model){
+        ModelAndView modelAndView = new ModelAndView();
         List<UserModel> users = new ArrayList<>();
         UserModel userModel = userService.getUserByName(principal.getName());
         String text = userModel.getUsername() + " with roles:"
@@ -59,20 +64,21 @@ public class UserController {
         users.add(userModel);
         model.addAttribute("users", users);
         model.addAttribute("username", text);
-        return "userInfo";
+        modelAndView.setViewName("userInfo");
+        //return "userInfo";
+        return modelAndView;
 
     }
 
+   /* @GetMapping("/admin")
+    //@ResponseBody
+    public List<UserModel> getAllUsers(){
+        return userService.getAllUsers();
+    }*/
+
     @GetMapping("/admin")
-    public String getAllUsers(Model model, Principal principal){
-        List<UserModel> users = userService.getAllUsers();
-        UserModel userModel = userService.getUserByName(principal.getName());
-        String text = userModel.getUsername() + " with roles:"
-                + userService.textRole((Set<RoleModel>)userModel.getRoles());
-        Set<RoleModel> set = roleService.getAllRoles();
-        model.addAttribute("users", users);
-        model.addAttribute("username", text);
-        model.addAttribute("set", set);
+    //@ResponseBody
+    public String getAllUsers(){
         return "getUsers";
     }
 
@@ -99,9 +105,12 @@ public class UserController {
 
 
     @PostMapping("/admin")
-    public String createUser(@ModelAttribute("user") UserModel user){
+    public ModelAndView createUser(@ModelAttribute("user") UserModel user){
+        ModelAndView modelAndView = new ModelAndView();
         userService.addUser(user);
-        return "redirect:/admin";
+        //return "redirect:/admin";
+        modelAndView.setViewName("getUsers");
+        return modelAndView;
     }
 
 

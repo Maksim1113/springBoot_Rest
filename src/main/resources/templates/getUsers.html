@@ -3,13 +3,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ussers</title>
+    <title>Users</title>
 
     <link rel="stylesheet" type="text/css" th:href="@{/home.css}"/>
     <link href="webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>
     <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="../static/main.js" th:src="@{/main.js}"></script>
+    <script src="/main.js"></script>
 
 </head>
 <body>
@@ -26,6 +26,7 @@
           </div>
       </div>
   </nav>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2 sidebar">
@@ -58,7 +59,7 @@
                         <h4>All users</h4>
                     </div>
                     <div class="panel-body">
-                        <table class="table table-striped table-hover table-bordered table-sm">
+                        <table id="userTable" class="table table-striped table-hover table-bordered table-sm">
                             <thead>
                             <tr>
 
@@ -74,29 +75,6 @@
                             </thead>
 
                             <tbody>
-                            <tr th:each="user: ${users}">
-                                <td th:text="${user.getId()}"/>
-                                <td th:text="${user.getName()}"/>
-                                <td th:text="${user.getAge()}"/>
-                                <td th:text="${user.username}"/>
-
-                                <td>
-                                    <th:block th:each="rol : ${user.getMyRole()}"
-                                              th:text="${rol.getRole()} + ' '">role</th:block>
-                                </td>
-
-                               <!-- <td th:each="rol : ${user.getMyRole()}">
-                                <th:block th:text="${rol.getRole()}"></th:block>
-                                </td>-->
-
-
-                                <td>
-                                    <a th:href="@{/getOne/(id=${user.getId()})}" class="btn btn-info btn-sm">Update</a>
-                                </td>
-                                <td>
-                                    <a th:href="@{/getOne/(id=${user.getId()})}" class="btn btn-danger btn-sm" id="deleteBut">Delete</a>
-                                </td>
-                            </tr>
 
                             </tbody>
                         </table>
@@ -111,7 +89,7 @@
     </div>
 </div>
 
-    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!--<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <form th:action="@{/admin}" method="post">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -157,13 +135,13 @@
                         </select>
                     </div>
 
-                    <!--<div class="form-group">
+                    &lt;!&ndash;<div class="form-group">
                         <label for="dis">Roles</label>
                         <select id="dis" name="rol" class="form-control">
                             <option>ROLE_USER</option>
                             <option>ROLE_ADMIN</option>
                         </select>
-                    </div>-->
+                    </div>&ndash;&gt;
 
 
 
@@ -230,7 +208,7 @@
                 </div>
             </div>
         </form>
-    </div>
+    </div>-->
 
 
 
