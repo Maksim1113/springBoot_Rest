@@ -25,6 +25,8 @@ async function newUserTable() {
                 rolesIdArr.forEach(roleId => roleId == role.id ? userRoles.push(role) : null)
             });
         });
+
+
         let data = {
             name: name,
             age: age,
@@ -33,6 +35,7 @@ async function newUserTable() {
             roles: userRoles
         }
         const addResponse = await userService.add(data);
+
     })
 };
 
