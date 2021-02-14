@@ -21,4 +21,6 @@ public interface UserService {
     public String textRole(Set<RoleModel> roles);
 
     public Optional<UserModel> findById(Long id);
+
+    UserModel showById(long id);
 }

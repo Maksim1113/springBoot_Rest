@@ -32,26 +32,15 @@ public class UserController {
     }
 
     @GetMapping("/registration")
-    public ModelAndView regNewUser(Model model, Principal principal){
-        ModelAndView modelAndView = new ModelAndView();
+    public String regNewUser(Model model, Principal principal){
         UserModel userModel = userService.getUserByName(principal.getName());
         String text = userModel.getUsername() + " with roles:"
                 + userService.textRole((Set<RoleModel>)userModel.getRoles());
         Set<RoleModel> set = roleService.getAllRoles();
-        model.addAttribute("user", new UserModel());
         model.addAttribute("username", text);
         model.addAttribute("set", set);
-        //return "registration";
-        modelAndView.setViewName("getUsers");
-        return modelAndView;
+        return "registration";
 
-    }
-
-
-    @PostMapping("/registration")
-    public String regUser(@ModelAttribute("user") UserModel user){
-        userService.addUser(user);
-        return "redirect:/registration";
     }
 
     @GetMapping("/user")
@@ -70,15 +59,13 @@ public class UserController {
 
     }
 
-   /* @GetMapping("/admin")
-    //@ResponseBody
-    public List<UserModel> getAllUsers(){
-        return userService.getAllUsers();
-    }*/
 
     @GetMapping("/admin")
-    //@ResponseBody
-    public String getAllUsers(){
+    public String getAllUsers(Principal principal, Model model){
+        UserModel userModel = userService.getUserByName(principal.getName());
+        String text = userModel.getUsername() + " with roles:"
+                + userService.textRole((Set<RoleModel>)userModel.getRoles());
+        model.addAttribute("username", text);
         return "getUsers";
     }
 

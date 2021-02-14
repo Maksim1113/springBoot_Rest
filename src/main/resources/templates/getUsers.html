@@ -50,10 +50,10 @@
                 <div class="col-md-10" style="background-color: #ffffff">
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-secondary disabled btn-light">Users table</button>
-
                         <form th:method="GET" th:action="@{/registration}">
                             <button class="btn btn-link" type="submit" >New user</button>
                         </form>
+
                     </div>
                     <div class="panel-heading">
                         <h4>All users</h4>
@@ -89,8 +89,8 @@
     </div>
 </div>
 
-    <!--<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form th:action="@{/admin}" method="post">
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -127,28 +127,15 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="dis">Roles</label>
-                        <select id="dis" name="roles" class="form-control" multiple="multiple">
-                            <option th:each="role : ${set}"
-                                    th:value="${{role}}"
-                                    th:text="${role.getRole()}">Cinema</option>
+                        <label for="rolesEdit">Roles select menu</label>
+                        <select id="rolesEdit"  class="form-control" multiple="multiple">
                         </select>
                     </div>
-
-                    &lt;!&ndash;<div class="form-group">
-                        <label for="dis">Roles</label>
-                        <select id="dis" name="rol" class="form-control">
-                            <option>ROLE_USER</option>
-                            <option>ROLE_ADMIN</option>
-                        </select>
-                    </div>&ndash;&gt;
-
-
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-primary" id="updateUserButton">Update</button>
                 </div>
             </div>
         </div>
@@ -208,7 +195,7 @@
                 </div>
             </div>
         </form>
-    </div>-->
+    </div>
 
 
 

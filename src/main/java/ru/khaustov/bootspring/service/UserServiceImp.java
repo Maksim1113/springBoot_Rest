@@ -68,4 +68,9 @@ public class UserServiceImp implements UserService{
     public Optional<UserModel> findById(Long id) {
         return userDao.findById(id);
     }
+
+    @Override
+    public UserModel showById(long id) {
+        return userDao.getUserById(id);
+    }
 }

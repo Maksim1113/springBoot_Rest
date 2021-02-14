@@ -9,6 +9,7 @@
     <link href="webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>
     <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="/main.js"></script>
 </head>
 
 <body>
@@ -62,41 +63,35 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-3"></div>
-                            <div class="col-md-6 text-center font-weight-bold">
-                                <form th:method="POST" th:action="@{/registration}" th:object="${user}">
-                                    <input type="hidden" name="Id" th:value="${user.id}">
-                                    <input type="hidden" name="Role" th:value="${user.getRoles()}">
-
-
+                            <div class="col-md-6 text-center font-weight-bold" id="addNewUserPanel">
+                                <form id="addFormNewUser">
+                                    <input type="hidden" name="Id">
                                     <div class="form-group col-xs-2">
-                                        <label for="name" class="center-block">Name</label>
-                                        <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter name">
+                                        <label for="nameNew" class="center-block">Name</label>
+                                        <input type="text" class="form-control" id="nameNew" placeholder="Enter name">
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="age">Age</label>
-                                        <input type="number" th:field="*{age}" class="form-control" id="age" placeholder="Enter age">
+                                        <label for="ageNew">Age</label>
+                                        <input type="number" class="form-control" id="ageNew" placeholder="Enter age">
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="username">Email</label>
-                                        <input type="text" th:field="*{username}" class="form-control" id="username" placeholder="Enter email">
+                                        <label for="usernameNew">Email</label>
+                                        <input type="text" class="form-control" id="usernameNew" placeholder="Enter email">
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <input type="text" th:field="*{password}" class="form-control" id="password" placeholder="Enter password">
+                                        <label for="passwordNew">Password</label>
+                                        <input type="text" class="form-control" id="passwordNew" placeholder="Enter password">
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="disabledSelect">Roles select menu</label>
-                                        <select id="disabledSelect" th:field="*{roles}" class="form-control" multiple="multiple">
-                                            <option th:each="role : ${set}"
-                                                    th:value="${{role}}"
-                                            th:text="${role.getRole()}">Cinema</option>
+                                        <label for="rolesNew">Roles select menu</label>
+                                        <select id="rolesNew"  class="form-control" multiple="multiple">
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-success">Create user</button>
+                                    <button type="button" class="btn btn-success" id="addNewUser">Create user</button>
                                 </form>
 
                             </div>
