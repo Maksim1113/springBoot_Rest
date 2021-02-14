@@ -44,18 +44,12 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public ModelAndView userPage(Principal principal, Model model){
-        ModelAndView modelAndView = new ModelAndView();
-        List<UserModel> users = new ArrayList<>();
+    public String userPage(Principal principal, Model model){
         UserModel userModel = userService.getUserByName(principal.getName());
         String text = userModel.getUsername() + " with roles:"
                 + userService.textRole((Set<RoleModel>)userModel.getRoles());
-        users.add(userModel);
-        model.addAttribute("users", users);
         model.addAttribute("username", text);
-        modelAndView.setViewName("userInfo");
-        //return "userInfo";
-        return modelAndView;
+        return "userinfo";
 
     }
 

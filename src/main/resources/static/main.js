@@ -4,6 +4,7 @@ $(function(){
     newUserTable();
     editModal();
     deleteModal();
+    userTableInfo();
 });
 
 async function newUserTable() {
@@ -271,6 +272,29 @@ async function deleteUser(modal, id) {
     });
 }
 
+async function userTableInfo() {
+    let table = $('#userInfo tbody');
+
+    const userResponse = await userService.findAuthUser();
+    const userJson = userResponse.json();
+
+    table.empty();
+    let data = '';
+    await userJson.then(async user => {
+        let rolesString = ''
+        await user.roles.forEach(role => rolesString += `${role.role}, `);
+        data += `<tr>
+                    <td>${user.id}</td>
+                    <td>${user.name}</td>
+                    <td>${user.age}</td>
+                    <td>${user.username}</td>
+                    <td>${rolesString.slice(0, -2)}</td>
+                </tr>`
+    })
+    table.append(data);
+}
+
+
 
 
 
@@ -297,6 +321,11 @@ const userService = {
     delete: async (id) => {
         return await http.fetch('/users/' + id, {
             method: 'DELETE'
+        });
+    },
+    findAuthUser: async () => {
+        return await http.fetch('/user/rst', {
+            method: 'GET'
         });
     },
 
