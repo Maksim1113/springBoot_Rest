@@ -26,10 +26,6 @@ public class UserController {
         this.roleService = roleService;
     }
 
-    @GetMapping("/start")
-    public String start(){
-        return "start";
-    }
 
     @GetMapping("/registration")
     public String regNewUser(Model model, Principal principal){
@@ -40,7 +36,6 @@ public class UserController {
         model.addAttribute("username", text);
         model.addAttribute("set", set);
         return "registration";
-
     }
 
     @GetMapping("/user")
@@ -50,11 +45,10 @@ public class UserController {
                 + userService.textRole((Set<RoleModel>)userModel.getRoles());
         model.addAttribute("username", text);
         return "userinfo";
-
     }
 
 
-    @GetMapping("/admin")
+    @GetMapping("/users")
     public String getAllUsers(Principal principal, Model model){
         UserModel userModel = userService.getUserByName(principal.getName());
         String text = userModel.getUsername() + " with roles:"
@@ -63,36 +57,22 @@ public class UserController {
         return "getUsers";
     }
 
-  /*  @GetMapping("/admin/{id}")
-    public String user(@ModelAttribute("user") UserModel edUser, Model model){
-        UserModel user = userService.getUser(edUser.getId());
-        model.addAttribute("user", user);
-        return "newUser";
-    }
 
-
-    @GetMapping("/admin/new")
-    public String setNewUser(Model model){
-        model.addAttribute("user", new UserModel());
-        return "newUser";
-
-    }*/
-
-    @RequestMapping("/getOne")
+    /*@RequestMapping("/getOne")
     @ResponseBody
     public Optional<UserModel> getOne(Long id){
         return userService.findById(id);
-    }
+    }*/
 
 
-    @PostMapping("/admin")
+   /* @PostMapping("/admin")
     public ModelAndView createUser(@ModelAttribute("user") UserModel user){
         ModelAndView modelAndView = new ModelAndView();
         userService.addUser(user);
         //return "redirect:/admin";
         modelAndView.setViewName("getUsers");
         return modelAndView;
-    }
+    }*/
 
 
    /* @DeleteMapping("/admin")
@@ -101,9 +81,9 @@ public class UserController {
         return "redirect:/admin";
     }*/
 
-    @RequestMapping(value = "/admin/delete", method = {RequestMethod.DELETE, RequestMethod.GET})
+  /*  @RequestMapping(value = "/admin/delete", method = {RequestMethod.DELETE, RequestMethod.GET})
     public String deleteUser(Long id){
         userService.deleteUser(id);
         return "redirect:/admin";
-    }
+    }*/
 }

@@ -301,30 +301,30 @@ async function userTableInfo() {
 
 const userService = {
     findAll: async () => {
-        return await http.fetch('/admin/rst');
+        return await http.fetch('/api/users');
     },
     add: async (data) => {
-        return await http.fetch('/registration', {
+        return await http.fetch('/api/user', {
             method: 'POST',
             body: JSON.stringify(data)
         });
     },
     findById: async (id) => {
-        return await http.fetch('/users/' + id);
+        return await http.fetch('/api/user/' + id);
     },
     update: async (id, data) => {
-        return await http.fetch('/users/' + id, {
+        return await http.fetch('/api/user/' + id, {
             method: 'PUT',
             body: JSON.stringify(data)
         });
     },
     delete: async (id) => {
-        return await http.fetch('/users/' + id, {
+        return await http.fetch('/api/user/' + id, {
             method: 'DELETE'
         });
     },
     findAuthUser: async () => {
-        return await http.fetch('/user/rst', {
+        return await http.fetch('/api/user', {
             method: 'GET'
         });
     },

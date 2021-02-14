@@ -30,36 +30,35 @@ public class UserRestController {
         this.roleService = roleService;
     }
 
-   @GetMapping("/admin/rst")
-    //@ResponseBody
+   @GetMapping("api/users")
     public List<UserModel> getAllUsers(){
         return userService.getAllUsers();
     }
 
-    @PostMapping("/registration")
+    @PostMapping("api/user")
     public ResponseEntity<?> addUser(@RequestBody UserModel user) {
         userService.addUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("api/user/{id}")
     public String apiDeleteUser(@PathVariable("id") long id) {
             userService.deleteUser(id);
         return "getUsers";
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("api/user/{id}")
     public ResponseEntity<?> apiUpdateUser(@PathVariable("id") long id, @RequestBody UserModel user) {
             userService.addUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("api/user/{id}")
     public UserModel apiGetOneUser(@PathVariable("id") long id) {
         return userService.showById(id);
     }
 
-    @GetMapping("/user/rst")
+    @GetMapping("api/user")
     public UserModel getUser(Principal principal){
         UserModel userModel = userService.getUserByName(principal.getName());
         return userModel;
