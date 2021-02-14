@@ -2,18 +2,14 @@
 $(function(){
     viewAllUsers();
     newUserTable();
-    defaultModal()
+    editModal();
+    deleteModal();
 });
 
 async function newUserTable() {
     let roleResponse = await roleService.findAll();
-    let roleJson = roleResponse.json();
+    let rolesJson = roleResponse.json();
     let addFormNewUser = $('#addFormNewUser');
-    roleJson.then(roles => {
-        roles.forEach(role => {
-            addFormNewUser.find('#rolesNew').append(new Option(role.role, role.id));
-        })
-    })
 
     $('#addNewUser').on('click', async e => {
 
@@ -23,7 +19,7 @@ async function newUserTable() {
         let password = addFormNewUser.find('#passwordNew').val().trim();
         let roles = addFormNewUser.find('#rolesNew').val();
         let rolesa = [];
-         await roleJson.then(roles => {
+         await rolesJson.then(roles => {
              roles.forEach(role => {
                  roles.forEach(roleId => {
                      if (role.id == roleId) {
@@ -83,7 +79,7 @@ async function viewAllUsers() {
     });
 }
 
-function defaultModal() {
+function editModal() {
     $('#updateModal').modal({
         keyboard: true,
         backdrop: "static",
@@ -99,6 +95,24 @@ function defaultModal() {
         }
     })
 }
+
+function deleteModal() {
+    $('#deleteModal').modal({
+        keyboard: true,
+        backdrop: "static",
+        show: false,
+    }).on("show.bs.modal", function(event){
+        let button = $(event.relatedTarget);
+        let id = button.data('id');
+        let action = button.data('action');
+        switch(action) {
+            case 'deleteUser':
+                deleteUser($(this), id);
+                break;
+        }
+    })
+}
+
 
 async function editUser(modal, id) {
     const userResponse = await userService.findById(id);
@@ -204,6 +218,59 @@ async function editUser(modal, id) {
     });
 }
 
+async function deleteUser(modal, id) {
+    const userResponse = await userService.findById(id);
+    const userJson = userResponse.json();
+
+    /*modal.find(modalTitle).html('Delete user');
+
+    let message = '<strong>Are you sure to delete the following user?</strong>';
+    modal.find(modalBody).html(message);
+
+    let viewUserTableHidden = $('.userForm:hidden')[0];
+    modal.find(modalBody).append($(viewUserTableHidden).clone());
+    let viewUserTable = modal.find('.userForm');
+    modal.find(viewUserTable).show();
+
+    dismissButton.html('Close');
+    modal.find(modalFooter).append(dismissButton);
+
+    dangerButton.prop('id', 'deleteUserButton');
+    dangerButton.html('Delete');
+    modal.find(modalFooter).append(dangerButton);
+
+    let idInput = `<div class="form-group">
+                <label for="id">ID</label>
+                <input type="text" class="form-control" id="id" name="id" disabled>
+                <div class="invalid-feedback"></div>
+            </div>`;
+    modal.find(viewUserTable).prepend(idInput);*/
+
+    // заполняем форму данными юзера
+    userJson.then(user => {
+        modal.find('#idDel').val(user.id);
+        modal.find('#nameDel').val(user.name);
+        modal.find('#ageDel').val(user.age);
+        modal.find('#usernameDel').val(user.username);
+        modal.find('#passwordDel').val(user.password);
+
+        modal.find('#age').append(new Option(user.age, user.age, false, true));
+        modal.find('#age').prop('disabled', true);
+
+        user.roles.forEach(userRole => {
+            modal.find('#rolesDel').append(new Option(userRole.role, userRole.id, false, true));
+        })
+        modal.find('#rolesDel')
+    })
+
+
+    $('#deleteUserButton').click(async function(e){
+        //e.preventDefault();
+        const userResponse = await userService.delete(id);
+
+    });
+}
+
 
 
 
@@ -225,6 +292,11 @@ const userService = {
         return await http.fetch('/users/' + id, {
             method: 'PUT',
             body: JSON.stringify(data)
+        });
+    },
+    delete: async (id) => {
+        return await http.fetch('/users/' + id, {
+            method: 'DELETE'
         });
     },
 

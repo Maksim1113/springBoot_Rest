@@ -143,7 +143,7 @@
     </div>
 
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form th:action="@{/admin/delete}" method="get">
+        <form>
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -155,22 +155,22 @@
                     <div class="modal-body">
 
                         <div class="form-group" >
-                            <label for="idEdit" class="col-form-label">Id:</label>
+                            <label for="idDel" class="col-form-label">Id:</label>
                             <input type="text"  class="form-control" id="idDel" name="id">
                         </div>
 
                         <div class="form-group" >
-                            <label for="nameEdit" class="col-form-label">Name:</label>
+                            <label for="nameDel" class="col-form-label">Name:</label>
                             <input type="text" class="form-control" id="nameDel" name="name">
                         </div>
 
                         <div class="form-group">
-                            <label for="ageEdit" class="col-form-label">Age:</label>
+                            <label for="ageDel" class="col-form-label">Age:</label>
                             <input type="text" class="form-control" id="ageDel" name="age">
                         </div>
 
                         <div class="form-group">
-                            <label for="usernameEdit" class="col-form-label">Email:</label>
+                            <label for="usernameDel" class="col-form-label">Email:</label>
                             <input type="text" class="form-control" id="usernameDel" name="username">
                         </div>
 
@@ -179,10 +179,8 @@
                             <input type="text" class="form-control" id="passwordDel" name="password">
                         </div>
                         <div class="form-group">
-                            <label for="disabledSelect">Roles</label>
-                            <select id="disabledSelect" name="rol" class="form-control">
-                                <option>ROLE_USER</option>
-                                <option>ROLE_ADMIN</option>
+                            <label for="rolesDel">Roles select menu</label>
+                            <select id="rolesDel"  class="form-control" multiple="multiple">
                             </select>
                         </div>
 
@@ -190,7 +188,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Delete</button>
+                        <button type="submit" class="btn btn-primary" id="deleteUserButton">Delete</button>
                     </div>
                 </div>
             </div>
