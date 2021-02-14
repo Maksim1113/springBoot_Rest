@@ -18,28 +18,23 @@ async function newUserTable() {
         let age = addFormNewUser.find('#ageNew').val().trim();
         let username = addFormNewUser.find('#usernameNew').val().trim();
         let password = addFormNewUser.find('#passwordNew').val().trim();
-        let roles = addFormNewUser.find('#rolesNew').val();
-        let rolesa = [];
-         await rolesJson.then(roles => {
-             roles.forEach(role => {
-                 roles.forEach(roleId => {
-                     if (role.id == roleId) {
-                         rolesa.push(role);
-                     }
-                 });
-             });
-         });
+        let rolesIdArr = addFormNewUser.find('#rolesNew').val();
+        let userRoles = [];
+        await rolesJson.then(roles => {
+            roles.forEach(role => {
+                rolesIdArr.forEach(roleId => roleId == role.id ? userRoles.push(role) : null)
+            });
+        });
         let data = {
             name: name,
             age: age,
             username: username,
             password: password,
-            roles: rolesa
+            roles: userRoles
         }
         const addResponse = await userService.add(data);
     })
 };
-
 
 async function viewAllUsers() {
     $('#userTable tbody').empty();
@@ -114,7 +109,6 @@ function deleteModal() {
     })
 }
 
-
 async function editUser(modal, id) {
     const userResponse = await userService.findById(id);
     const userJson = userResponse.json();
@@ -122,31 +116,6 @@ async function editUser(modal, id) {
     const rolesResponse = await roleService.findAll();
     const rolesJson = rolesResponse.json();
 
-
-    /*let idInput = `<div class="form-group">
-                <label for="id">ID</label>
-                <input type="text" class="form-control" id="id" name="id" disabled>
-                <div class="invalid-feedback"></div>
-            </div>`;
-
-    modal.find(modalTitle).html('Edit User');
-
-    let userFormHidden = $('.userForm:hidden')[0];
-    modal.find(modalBody).html($(userFormHidden).clone());
-    let userForm = modal.find('.userForm');
-
-    userForm.prop('id', 'updateUserForm');
-    modal.find(userForm).prepend(idInput);
-    modal.find(userForm).show();
-
-    dismissButton.html('Cancel');
-    modal.find(modalFooter).append(dismissButton);
-
-    primaryButton.prop('id', 'updateUserButton');
-    primaryButton.html('Update');
-    modal.find(modalFooter).append(primaryButton);*/
-
-    // заполняем форму данными юзера
     userJson.then(user => {
         modal.find('#idEdit').val(user.id);
         modal.find('#nameEdit').val(user.name);
@@ -167,7 +136,6 @@ async function editUser(modal, id) {
         });
     });
 
-
     $('#updateUserButton').click(async function(e){
         let addForm = $('#updateModal');
         let id = addForm.find('#idEdit').val().trim();
@@ -177,7 +145,6 @@ async function editUser(modal, id) {
         let password = addForm.find('#passwordEdit').val().trim();
         let rolesIdArr = addForm.find('#rolesEdit').val();
 
-        // ROLES
         let userRoles = [];
         await rolesJson.then(roles => {
             roles.forEach(role => {
@@ -193,29 +160,7 @@ async function editUser(modal, id) {
             password: password,
             roles: userRoles
         };
-
         const userResponse = await userService.update(id, data);
-
-       /* if (userResponse.status == 200) {
-            adminTabAllUsers();
-            modal.find('.modal-title').html('Success');
-            modal.find('.modal-body').html('User updated!');
-
-            dismissButton.html('Close');
-            modal.find(modalFooter).html(dismissButton);
-
-            $('#defaultModal').modal('show');
-        } else {
-            let maybeBody = await userResponse.json();
-            $('#sharaBaraMessageError').remove();
-            let alert = `<div class="alert alert-danger alert-dismissible fade show col-12" role="alert" id="sharaBaraMessageError">
-                                ${maybeBody.info}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>`;
-            modal.find('.modal-body').prepend(alert);
-        }*/
     });
 }
 
@@ -223,31 +168,6 @@ async function deleteUser(modal, id) {
     const userResponse = await userService.findById(id);
     const userJson = userResponse.json();
 
-    /*modal.find(modalTitle).html('Delete user');
-
-    let message = '<strong>Are you sure to delete the following user?</strong>';
-    modal.find(modalBody).html(message);
-
-    let viewUserTableHidden = $('.userForm:hidden')[0];
-    modal.find(modalBody).append($(viewUserTableHidden).clone());
-    let viewUserTable = modal.find('.userForm');
-    modal.find(viewUserTable).show();
-
-    dismissButton.html('Close');
-    modal.find(modalFooter).append(dismissButton);
-
-    dangerButton.prop('id', 'deleteUserButton');
-    dangerButton.html('Delete');
-    modal.find(modalFooter).append(dangerButton);
-
-    let idInput = `<div class="form-group">
-                <label for="id">ID</label>
-                <input type="text" class="form-control" id="id" name="id" disabled>
-                <div class="invalid-feedback"></div>
-            </div>`;
-    modal.find(viewUserTable).prepend(idInput);*/
-
-    // заполняем форму данными юзера
     userJson.then(user => {
         modal.find('#idDel').val(user.id);
         modal.find('#nameDel').val(user.name);
@@ -266,9 +186,7 @@ async function deleteUser(modal, id) {
 
 
     $('#deleteUserButton').click(async function(e){
-        //e.preventDefault();
         const userResponse = await userService.delete(id);
-
     });
 }
 
@@ -293,11 +211,6 @@ async function userTableInfo() {
     })
     table.append(data);
 }
-
-
-
-
-
 
 const userService = {
     findAll: async () => {
@@ -328,7 +241,6 @@ const userService = {
             method: 'GET'
         });
     },
-
 };
 
 const roleService = {
@@ -349,8 +261,6 @@ const http = {
 
         return response;
     }
-
-
 }
 
 

@@ -89,6 +89,9 @@
                                     <div class="form-group">
                                         <label for="rolesNew">Roles select menu</label>
                                         <select id="rolesNew"  class="form-control" multiple="multiple">
+                                            <option th:each="role : ${set}"
+                                                    th:value="${{role}}"
+                                                    th:text="${role.getRole()}">Cinema</option>
                                         </select>
                                     </div>
                                     <button type="button" class="btn btn-success" id="addNewUser">Create user</button>
