@@ -7,6 +7,8 @@ $(function(){
     userTableInfo();
 });
 
+
+
 async function newUserTable() {
     let roleResponse = await roleService.findAll();
     let rolesJson = roleResponse.json();
@@ -35,6 +37,8 @@ async function newUserTable() {
             roles: userRoles
         }
         const addResponse = await userService.add(data);
+            console.log('я делаю редирект');
+        document.location.href = 'http://localhost:8080/users'
 
     })
 };
@@ -244,6 +248,7 @@ const userService = {
             method: 'GET'
         });
     },
+
 };
 
 const roleService = {

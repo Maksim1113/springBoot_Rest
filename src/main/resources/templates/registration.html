@@ -27,7 +27,7 @@
 </nav>
 
 
-<div class="container-fluid">
+<div class="container-fluid" th:fragment="registration_panel">
     <div class="row">
         <div class="col-md-2 sidebar">
             <div class="btn-group-vertical btn-lg btn-block" role="group" aria-label="Basic example">
@@ -94,7 +94,9 @@
                                                     th:text="${role.getRole()}">Cinema</option>
                                         </select>
                                     </div>
+                                    <form th:method="GET" th:action="@{/users}">
                                     <button type="button" class="btn btn-success" id="addNewUser">Create user</button>
+                                    </form>
                                 </form>
 
                             </div>
